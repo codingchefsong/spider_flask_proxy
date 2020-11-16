@@ -48,16 +48,16 @@ def pac(id):
 def pac_next():
     db = get_db()
     records = db.execute(
-        'SELECT ip, port, id, author_id, username'
+        'SELECT ip, port, delay, updated, author_id, username'
         ' FROM proxy p JOIN user u ON p.author_id = u.id'
         ' WHERE updated =(SELECT MAX(updated) FROM proxy)'
         ' ORDER BY delay ASC'
     ).fetchall()
     if len(records) >= 2:
-        id = records[0]['id']
+        ip = records[0]['ip']
         print("Delete proxy record.")
-        # db.execute('DELETE FROM proxy WHERE id = ?', (id,))
-        db.execute("UPDATE proxy SET delay = ? WHERE id = ?", (99999, id))
+        # db.execute('DELETE FROM proxy WHERE ip = ?', (ip,))
+        db.execute("UPDATE proxy SET delay = ? WHERE ip = ?", (99999, ip))
     db.commit()
     return redirect(url_for('blog.dashboard'))
 

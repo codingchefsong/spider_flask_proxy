@@ -6,20 +6,15 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a58ddd5a-9d0a-46ca-81a3-dbce647122f5" name="Default Changelist" comment="version 1.0" />
+    <list default="true" id="a58ddd5a-9d0a-46ca-81a3-dbce647122f5" name="Default Changelist" comment="version 1.0">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmd.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskr/blog.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskr/blog.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +33,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="104b7e8d-a0a2-4e8e-93f8-cd42895a4057" />
   </component>
   <component name="ProjectId" id="1hBsC43ocYGx7OTdZSSPgu5YxQb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -253,13 +251,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599495688687</updated>
-    </task>
-    <task id="LOCAL-00001" summary="version 1.0">
-      <created>1599829831033</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1599829831033</updated>
     </task>
     <task id="LOCAL-00002" summary="version 2.0">
       <created>1599831280094</created>
@@ -583,7 +574,28 @@
       <option name="project" value="LOCAL" />
       <updated>1605490520707</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="version 1.0">
+      <created>1605490666077</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1605490666077</updated>
+    </task>
+    <task id="LOCAL-00049" summary="version 1.0">
+      <created>1605490775586</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1605490775586</updated>
+    </task>
+    <task id="LOCAL-00050" summary="version 1.0">
+      <created>1605490843947</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1605490843947</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -637,15 +649,15 @@
     </state>
     <state x="422" y="101" key="FileChooserDialogImpl/0.0.1280.690@0.0.1280.690" timestamp="1599829447196" />
     <state x="506" y="122" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1605390126606" />
-    <state x="631" y="330" key="Github.Dialog.Accounts.Choose" timestamp="1605490533482">
+    <state x="631" y="330" key="Github.Dialog.Accounts.Choose" timestamp="1605490857961">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="631" y="330" key="Github.Dialog.Accounts.Choose/0.0.1536.834@0.0.1536.834" timestamp="1605490533482" />
-    <state x="617" y="295" key="Github.ShareDialog" timestamp="1605390070270">
+    <state x="631" y="330" key="Github.Dialog.Accounts.Choose/0.0.1536.834@0.0.1536.834" timestamp="1605490857961" />
+    <state x="617" y="295" key="Github.ShareDialog" timestamp="1605490743456">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="514" y="244" key="Github.ShareDialog/0.0.1280.690@0.0.1280.690" timestamp="1599842967210" />
-    <state x="617" y="295" key="Github.ShareDialog/0.0.1536.834@0.0.1536.834" timestamp="1605390070270" />
+    <state x="617" y="295" key="Github.ShareDialog/0.0.1536.834@0.0.1536.834" timestamp="1605490743456" />
     <state x="411" y="51" key="Github.UntrackedFilesDialog" timestamp="1599829055932">
       <screen x="0" y="0" width="1280" height="690" />
     </state>
@@ -732,11 +744,11 @@
     <state x="174" y="0" key="SettingsEditor/0.0.1280.690@0.0.1280.690" timestamp="1602815903946" />
     <state x="271" y="56" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1605490265987" />
     <state x="348" y="0" key="SettingsEditor/0.0.2560.1050@0.0.2560.1050" timestamp="1602387880706" />
-    <state x="281" y="95" key="Vcs.Push.Dialog.v2" timestamp="1605490525381">
+    <state x="281" y="95" key="Vcs.Push.Dialog.v2" timestamp="1605490847679">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="234" y="79" key="Vcs.Push.Dialog.v2/0.0.1280.690@0.0.1280.690" timestamp="1604375224120" />
-    <state x="281" y="95" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1605490525381" />
+    <state x="281" y="95" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1605490847679" />
     <state x="468" y="120" key="Vcs.Push.Dialog.v2/0.0.2560.1050/-3840.-533.1536.834@0.0.2560.1050" timestamp="1603290332834" />
     <state x="468" y="120" key="Vcs.Push.Dialog.v2/0.0.2560.1050@0.0.2560.1050" timestamp="1602597587066" />
     <state x="4308" y="615" key="Vcs.Push.Dialog.v2/3840.500.2560.1004/0.0.1536.834@3840.500.2560.1004" timestamp="1603124978168" />

@@ -53,5 +53,9 @@ $ nohup waitress-serve --call 'flaskr:create_app' &
 ```
 - start craw proxy ip
 ```
-$ nohup python venv/var/flaskr-instance/proxy_spider_socks.py &
+$ nohup python venv/var/proxy_spider_socks.py &
+```
+- start test proxy ip
+```
+$ nohup python venv/var/ping_threading.py &
 ```

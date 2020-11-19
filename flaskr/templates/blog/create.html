@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Post{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="ip">ip address</label>
+    <input name="ip" id="ip" value="{{ request.form['ip'] }}" required>
+    <label for="port">port</label>
+    <input name="port" id="port" value="{{ request.form['port'] }}" required>
+    <label for="delay">delay</label>
+    <input name="delay" id="delay" value="{{ request.form['delay'] }}" required>
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}

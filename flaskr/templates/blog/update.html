@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ post['ip'] }}:{{ post['port'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post">
+    <label for="ip">ip address</label>
+    <input name="ip" id="ip" value="{{ request.form['ip'] or post['ip'] }}" required>
+    <label for="port">port</label>
+    <input name="port" id="port" value="{{ request.form['port'] or post['port'] }}" required>
+    <label for="delay">delay</label>
+    <input name="delay" id="delay" value="{{ request.form['delay'] or post['delay'] }}" required>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}

@@ -12,8 +12,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a58ddd5a-9d0a-46ca-81a3-dbce647122f5" name="Default Changelist" comment="version 1.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmd.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskr/blog.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskr/blog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/flaskr.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/instance/flaskr.sqlite" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,13 +250,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599495688687</updated>
-    </task>
-    <task id="LOCAL-00002" summary="version 2.0">
-      <created>1599831280094</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1599831280094</updated>
     </task>
     <task id="LOCAL-00003" summary="version 2.0">
       <created>1599841642800</created>
@@ -595,7 +587,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605490843947</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="version 1.0">
+      <created>1605491735915</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1605491735915</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -649,10 +648,10 @@
     </state>
     <state x="422" y="101" key="FileChooserDialogImpl/0.0.1280.690@0.0.1280.690" timestamp="1599829447196" />
     <state x="506" y="122" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1605390126606" />
-    <state x="631" y="330" key="Github.Dialog.Accounts.Choose" timestamp="1605490857961">
+    <state x="631" y="330" key="Github.Dialog.Accounts.Choose" timestamp="1605491767828">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="631" y="330" key="Github.Dialog.Accounts.Choose/0.0.1536.834@0.0.1536.834" timestamp="1605490857961" />
+    <state x="631" y="330" key="Github.Dialog.Accounts.Choose/0.0.1536.834@0.0.1536.834" timestamp="1605491767828" />
     <state x="617" y="295" key="Github.ShareDialog" timestamp="1605490743456">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -744,11 +743,11 @@
     <state x="174" y="0" key="SettingsEditor/0.0.1280.690@0.0.1280.690" timestamp="1602815903946" />
     <state x="271" y="56" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1605490265987" />
     <state x="348" y="0" key="SettingsEditor/0.0.2560.1050@0.0.2560.1050" timestamp="1602387880706" />
-    <state x="281" y="95" key="Vcs.Push.Dialog.v2" timestamp="1605490847679">
+    <state x="281" y="95" key="Vcs.Push.Dialog.v2" timestamp="1605491761695">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="234" y="79" key="Vcs.Push.Dialog.v2/0.0.1280.690@0.0.1280.690" timestamp="1604375224120" />
-    <state x="281" y="95" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1605490847679" />
+    <state x="281" y="95" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1605491761695" />
     <state x="468" y="120" key="Vcs.Push.Dialog.v2/0.0.2560.1050/-3840.-533.1536.834@0.0.2560.1050" timestamp="1603290332834" />
     <state x="468" y="120" key="Vcs.Push.Dialog.v2/0.0.2560.1050@0.0.2560.1050" timestamp="1602597587066" />
     <state x="4308" y="615" key="Vcs.Push.Dialog.v2/3840.500.2560.1004/0.0.1536.834@3840.500.2560.1004" timestamp="1603124978168" />

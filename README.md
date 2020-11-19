@@ -1,4 +1,4 @@
-# Unblock NeteaseMusic region block
+# Unblock NeteaseMusic Region Block
 Spider crawl page get proxy ip and port, parse the ip and port, using web framework flask show the results.
 - Using selenium, beautiful soup to get some proxy ip port from website save to datebase
 - Using multithreading test every record ping music.163.com save the results to datebase

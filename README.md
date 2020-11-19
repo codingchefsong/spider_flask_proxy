@@ -55,16 +55,3 @@ $ nohup waitress-serve --call 'flaskr:create_app' &
 ```
 $ nohup python venv/var/flaskr-instance/proxy_spider_socks.py &
 ```
-
-PAC 自动代理脚本地址 `http://host/proxy`
-
-全局代理地址填写服务器地址和端口号即可
-
-| 平台    | 基础设置 |
-| :------ | :------------------------------- |
-| Windows | 设置 > 工具 > 自定义代理 (客户端内) |
-| UWP     | Windows 设置 > 网络和 Internet > 代理 |
-| Linux   | 系统设置 > 网络 > 网络代理 |
-| macOS   | 系统偏好设置 > 网络 > 高级 > 代理 |
-| Android | WLAN > 修改网络 > 高级选项 > 代理 |
-| iOS     | 无线局域网 > HTTP 代理 > 配置代理 |

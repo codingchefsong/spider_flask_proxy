@@ -10,11 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a58ddd5a-9d0a-46ca-81a3-dbce647122f5" name="Default Changelist" comment="version 1.0">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/flaskr.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/instance/flaskr.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/ping_threading.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/ping_threading.py" afterDir="false" />
-    </list>
+    <list default="true" id="a58ddd5a-9d0a-46ca-81a3-dbce647122f5" name="Default Changelist" comment="version 1.0" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

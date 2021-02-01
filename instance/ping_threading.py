@@ -42,7 +42,7 @@ def ping_163(id, ip, port):
         r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=(3.05, 3.05))
         if r.status_code == 200:
             elapsed = r.elapsed.total_seconds()
-            # print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
+            print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
             delay = str(elapsed)
             db = get_db()
             # db.execute("REPLACE INTO proxy (id, updated, delay, ip, port, author_id) VALUES (?,?,?,?,?,?)",
@@ -60,20 +60,32 @@ def ping_163(id, ip, port):
         pass
 
 
+def start():
+    threads = []
+
+    records = get_records()
+    for r in records:
+        id, ip, port = r[0], r[1], r[2]
+        # print(ip, port)
+        thread = threading.Thread(target=ping_163, args=(id, ip, port,))
+        thread.setDaemon(True)
+        threads.append(thread)
+    for thread in threads:
+        thread.start()
+
+    # for thread in threads:
+    #     print("join")
+    #     thread.join(timeout=1)
+
+
 if __name__ == '__main__':
     while 1:
-        threads = []
-        t_start = time.time()
-        records = get_records()
-        for r in records:
-            id, ip, port = r[0], r[1], r[2]
-            # print(ip, port)
-            thread = threading.Thread(target=ping_163, args=(id, ip, port,))
-            thread.start()
-            threads.append(thread)
-        for thread in threads:
-            thread.join()
+        datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        print(datetime)
+        print("start task")
 
-        t_end = time.time()
-        # print('Total time cost: ', t_end - t_start, 's')
+        start()
+
+
+
         time.sleep(30)

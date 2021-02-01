@@ -12,5 +12,9 @@ dist/
 build/
 *.egg-info/
 
+<<<<<<< HEAD
+=======
+.idea
+>>>>>>> 112e6ed... version 1.0
 .idea/
 /instance/flaskr.sqlite-journal

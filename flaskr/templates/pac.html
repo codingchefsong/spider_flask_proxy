@@ -1,9 +1,0 @@
-var proxy = "SOCKS {{ records['ip'] }}:{{ records['port'] }}";
-function FindProxyForURL(url, host) {
-  if (shExpMatch(url, "*.ip138.com/*")) {
-    return proxy;
-  }
-  if (shExpMatch(url, "*.163.com/*")) {
-    return proxy;
-  }
-}

@@ -6,6 +6,10 @@ from flask import Flask
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+
+    # upload file config
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -47,3 +51,23 @@ def create_app(test_config=None):
     app.add_url_rule('/', endpoint='index')
 
     return app
+
+
+"""
+For Linux and Mac:
+
+$ export FLASK_APP=flaskr
+$ export FLASK_ENV=development
+$ flask run
+
+For Windows cmd, use set instead of export:
+
+> set FLASK_APP=flaskr
+> set FLASK_ENV=development
+> flask run
+
+Init database
+> flask init-db
+
+
+"""

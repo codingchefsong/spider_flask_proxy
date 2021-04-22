@@ -1,13 +1,35 @@
+from flask import (
+    Flask, Blueprint, flash, g, redirect, render_template, request, url_for
+)
+# from flask import Flask, flash, request, redirect, url_for
 from werkzeug.exceptions import abort
+
+from werkzeug.utils import secure_filename
+
+import os
 
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-
 bp = Blueprint('blog', __name__)
+
+# upload config
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'uploads')
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.errorhandler(413)
+def too_large(e):
+    return "File is too large", 413
 
 
 @bp.route('/proxy')

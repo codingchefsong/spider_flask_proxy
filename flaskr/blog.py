@@ -173,8 +173,8 @@ def upload():
         body = request.form['body']
         error = None
 
-        if not title:
-            error = 'Title is required.'
+        # if not title:
+        #     error = 'Title is required.'
 
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -197,13 +197,13 @@ def upload():
                 db.execute(
                     'INSERT INTO upload (title, body, author_id, file_url)'
                     ' VALUES (?, ?, ?, ?)',
-                    (title, body, g.user['id'], fileurl)
+                    (title, body, g.user['id'], filename)
                 )
                 db.commit()
                 return redirect(url_for('blog.index'))
             # return redirect(url_for('blog.index'))
 
-    return render_template('blog/home.html')
+    return render_template('blog/create.html')
 
 
 def get_post(id, check_author=True):

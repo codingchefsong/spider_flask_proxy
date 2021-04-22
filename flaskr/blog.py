@@ -121,26 +121,43 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
+    # print(UPLOAD_FOLDER)
+    # print(os.path.dirname(os.path.abspath(__file__)))
+    # print(os.path.join(app.config['UPLOAD_FOLDER']))
     if request.method == 'POST':
-        ip = request.form['ip']
-        port = request.form['port']
-        delay = request.form['delay']
+        title = request.form['title']
+        body = request.form['body']
         error = None
 
-        if not ip:
-            error = 'IP is required.'
+        if not title:
+            error = 'Title is required.'
+
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            return redirect(url_for('blog.index'))
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO proxy (ip, port, delay, author_id)'
-                ' VALUES (?, ?, ?, ?)',
-                (ip, port, delay, g.user['id'])
+                'INSERT INTO post (title, body, author_id)'
+                ' VALUES (?, ?, ?)',
+                (title, body, g.user['id'])
             )
             db.commit()
-            return redirect(url_for('blog.dashboard'))
+            return redirect(url_for('blog.index'))
 
     return render_template('blog/create.html')
 

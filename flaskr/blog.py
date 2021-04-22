@@ -115,7 +115,7 @@ def index():
         ' WHERE updated =(SELECT MAX(updated) FROM proxy)'
         ' ORDER BY delay ASC'
     ).fetchall()
-    return render_template('blog/home.html', records=records)
+    return render_template('blog/index.html', records=records)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -160,6 +160,50 @@ def create():
             return redirect(url_for('blog.index'))
 
     return render_template('blog/create.html')
+
+
+@bp.route('/upload', methods=('GET', 'POST'))
+@login_required
+def upload():
+    # print(UPLOAD_FOLDER)
+    # print(os.path.dirname(os.path.abspath(__file__)))
+    # print(os.path.join(app.config['UPLOAD_FOLDER']))
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            fileurl = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(fileurl)
+            if error is not None:
+                flash(error)
+            else:
+                db = get_db()
+                db.execute(
+                    'INSERT INTO upload (title, body, author_id, file_url)'
+                    ' VALUES (?, ?, ?, ?)',
+                    (title, body, g.user['id'], fileurl)
+                )
+                db.commit()
+                return redirect(url_for('blog.index'))
+            # return redirect(url_for('blog.index'))
+
+    return render_template('blog/home.html')
 
 
 def get_post(id, check_author=True):

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Home{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('blog.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<head>
+  <script type="text/JavaScript">
+<!--
+function AutoRefresh( t ) {
+ setTimeout("location.reload(true);", t);
+}
+//  -->
+</script>
+<body onload="JavaScript:AutoRefresh(1000);"></body>
+</head>
+  {% for r in records %}
+    <article class="r" >
+      <header>
+        <div>
+          <h1>{{ r['ip'] }}:{{ r['port'] }} delay:{{ r['delay'] }}</h1>
+          <div class="about">update: {{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
+          <div class="about">create: {{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
+        </div>
+        {% if g.user['id'] == r['author_id'] %}
+          <a class="action" href="{{ url_for('blog.update', id=r['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

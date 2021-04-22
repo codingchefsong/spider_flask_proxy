@@ -39,7 +39,7 @@ def ping_163(id, ip, port):
     s.mount('http://', a)
     datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     try:
-        r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=(3.05, 3.05))
+        r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=1)
         if r.status_code == 200:
             elapsed = r.elapsed.total_seconds()
             print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
@@ -66,25 +66,28 @@ def start():
     records = get_records()
     for r in records:
         id, ip, port = r[0], r[1], r[2]
-        # print(ip, port)
+        print(ip, port)
         thread = threading.Thread(target=ping_163, args=(id, ip, port,))
         thread.setDaemon(True)
         threads.append(thread)
     for thread in threads:
         thread.start()
-
-    # for thread in threads:
-    #     print("join")
-    #     thread.join(timeout=1)
+    for thread in threads:
+        thread.join(timeout=1)
+        print(threading.active_count())
 
 
 if __name__ == '__main__':
 
     while 1:
+        time_start = time.time()
         datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        print(datetime)
-        print("start task")
+        # print(datetime)
+        # print("start task")
 
         start()
 
-        time.sleep(30)
+        time_end = time.time()
+        # print('time cost: ', time_end - time_start, 's')
+
+        time.sleep(1)

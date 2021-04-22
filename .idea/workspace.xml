@@ -11,7 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a58ddd5a-9d0a-46ca-81a3-dbce647122f5" name="Default Changelist" comment="version 1.0">
+      <change afterPath="$PROJECT_DIR$/flaskr/static/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flaskr/static/bootstrap.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flaskr/static/signin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskr/templates/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskr/templates/auth/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskr/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskr/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskr/templates/blog/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskr/templates/blog/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskr/templates/blog/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskr/templates/blog/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/flaskr.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/instance/flaskr.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/ping_threading.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/ping_threading.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +41,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="104b7e8d-a0a2-4e8e-93f8-cd42895a4057" />
   </component>
@@ -47,43 +64,24 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/instance" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/flaskr/static" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\instance" />
-      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial" />
-      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\flaskr" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\flaskr\static" />
       <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\instance" />
       <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\flaskr\templates\blog" />
       <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\flaskr" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\flaskr\static" />
+      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\instance" />
+      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial" />
+      <recent name="C:\Users\Song\PycharmProjects\flask-tutorial\flaskr" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.proxy_spider_socks">
-    <configuration name="cp_proxy_spider_socks" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="flask-tutorial" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/instance" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\Song\PycharmProjects\flask-tutorial\instance\cp_proxy_spider_socks.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.ping_threading (1)">
     <configuration name="cp_proxy_spider_socks" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="flask-tutorial" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -231,13 +229,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="flask-tutorial" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/instance" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/instance/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.proxy_spider_socks" />
         <item itemvalue="Python.ping_threading (1)" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.proxy_spider_socks" />
         <item itemvalue="Python.ping_threading" />
         <item itemvalue="Python.generate_rand_key" />
-        <item itemvalue="Python.cp_proxy_spider_socks" />
       </list>
     </recent_temporary>
   </component>
@@ -249,13 +268,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599495688687</updated>
-    </task>
-    <task id="LOCAL-00008" summary="version 1.0">
-      <created>1601341373311</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1601341373311</updated>
     </task>
     <task id="LOCAL-00009" summary="version 1.0">
       <created>1601758098887</created>
@@ -593,7 +605,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612154615256</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="version 1.0">
+      <created>1612154737170</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1612154737170</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -625,6 +644,15 @@
     <option name="LAST_COMMIT_MESSAGE" value="version 1.0" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/instance/ping_threading.py</url>
+          <line>76</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="delay_dict" />

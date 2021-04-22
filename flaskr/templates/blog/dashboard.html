@@ -8,6 +8,16 @@
 {% endblock %}
 
 {% block content %}
+<head>
+  <script type="text/JavaScript">
+<!--
+function AutoRefresh( t ) {
+ setTimeout("location.reload(true);", t);
+}
+//  -->
+</script>
+<body onload="JavaScript:AutoRefresh(1000);"></body>
+</head>
   {% for r in records %}
     <article class="r">
       <header>

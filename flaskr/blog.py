@@ -46,9 +46,9 @@ class UploadForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     photos = UploadSet('photos', IMAGES)
     photo = FileField(validators=[
-        FileAllowed(photos, u'只能上传图片！'),
-        FileRequired(u'文件未选择！')])
-    submit = SubmitField(u'上传')
+        FileAllowed(photos, "Picture Only!"),
+        FileRequired("No select files!")])
+    submit = SubmitField("Submit")
 
 
 photos = UploadSet('photos', IMAGES)
@@ -74,6 +74,7 @@ def upload():
             (name, 'body', g.user['id'], str(fileurls))
         )
         db.commit()
+        return redirect(url_for('blog/home'))
     else:
         success = False
     return render_template('blog/upload.html', form=form, success=success)

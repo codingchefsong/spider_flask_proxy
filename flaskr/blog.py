@@ -7,7 +7,6 @@ from flask import (
 # from flask import Flask, flash, request, redirect, url_for
 from werkzeug.exceptions import abort
 
-from werkzeug.utils import secure_filename
 
 import os
 

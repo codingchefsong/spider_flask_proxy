@@ -14,10 +14,12 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
     # upload file config
-    app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(os.getcwd(), 'uploads')
-    app.config['UPLOADED_FILES_URL'] = os.path.join(os.getcwd(), 'files')
-    app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(os.getcwd(), 'defdest')
-    app.config['UPLOADS_DEFAULT_URL'] = os.path.join(os.getcwd(), 'defurl')
+    # app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(os.getcwd(), 'uploads')
+    # app.config['UPLOADED_FILES_URL'] = os.path.join(os.getcwd(), 'files')
+    # app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(os.getcwd(), 'defdest')
+    # app.config['UPLOADS_DEFAULT_URL'] = os.path.join(os.getcwd(), 'defurl')
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(APP_ROOT, 'uploads')
 
     configure_uploads(app, photos)
     patch_request_class(app)  # set maximum file size, default is 16MB

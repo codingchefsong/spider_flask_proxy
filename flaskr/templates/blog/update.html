@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit "{{ post['ip'] }}:{{ post['port'] }}"{% endblock %}</h1>
+  <h1>{% block title %}Edit "{{ post['title'] }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-
   <form method="post">
-    <label for="ip">ip address</label>
-    <input name="ip" id="ip" value="{{ request.form['ip'] or post['ip'] }}" required>
-    <label for="port">port</label>
-    <input name="port" id="port" value="{{ request.form['port'] or post['port'] }}" required>
-    <label for="delay">delay</label>
-    <input name="delay" id="delay" value="{{ request.form['delay'] or post['delay'] }}" required>
+    <label for="title">Title</label>
+    <input name="title" id="title"
+      value="{{ request.form['title'] or post['title'] }}" required>
+    <label for="body">Body</label>
+    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+    {% for u in fileurls %}
+    <br><img src="{{ u }}">
+    {% endfor %}
+
+
     <input type="submit" value="Save">
   </form>
   <hr>

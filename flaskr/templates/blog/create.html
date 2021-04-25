@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  <form action="{{ url_for('blog.upload') }}" method="post" enctype=multipart/form-data class="dropzone">
+  <form action="{{ url_for('blog.create') }}" method="post" enctype=multipart/form-data class="dropzone">
     <label for="title">Title</label>
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
     <label for="body">Body</label>

@@ -74,7 +74,7 @@ def upload():
             (name, 'body', g.user['id'], str(fileurls))
         )
         db.commit()
-        return redirect(url_for('blog/home'))
+        return redirect(url_for('blog.home'))
     else:
         success = False
     return render_template('blog/upload.html', form=form, success=success)
@@ -97,7 +97,7 @@ def open_file(filename):
 def delete_file(filename):
     file_path = photos.path(filename)
     os.remove(file_path)
-    return redirect(url_for('blog/manage_file'))
+    return redirect(url_for('blog.manage_file'))
 
 
 @bp.route('/home')
@@ -256,29 +256,24 @@ def update(id):
             if name == f.split('.')[0]:
                 results.append(photos.url(name +'.'+ f.split('.')[1]))
 
+    form = UploadForm()
+    if form.validate_on_submit():
+        name = request.form['name']
+        fileurls = []
+        for f in request.files.getlist('photo'):
+            filename = uuid.uuid4().hex
+            photos.save(f, name=filename + '.')
+            fileurls.append(filename)
+        success = True
+        db = get_db()
+        db.execute(
+            'INSERT INTO upload (title, body, author_id, file_url)'
+            ' VALUES (?, ?, ?, ?)',
+            (name, 'body', g.user['id'], str(fileurls))
+        )
+        db.commit()
+        return redirect(url_for('blog.home'))
 
-
-
-    if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
-        error = None
-
-        if not title:
-            error = 'Title is required.'
-
-        if error is not None:
-            flash(error)
-        else:
-            db = get_db()
-            db.execute(
-                'UPDATE upload SET title = ?, body = ?'
-                ' WHERE id = ?',
-                (title, body, id)
-            )
-            db.commit()
-            return redirect(url_for('blog.index'))
-    print(fileurls)
     return render_template('blog/update.html', post=post, fileurls=results)
 
 

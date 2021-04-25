@@ -272,7 +272,7 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                'UPDATE post SET title = ?, body = ?'
+                'UPDATE upload SET title = ?, body = ?'
                 ' WHERE id = ?',
                 (title, body, id)
             )
@@ -287,6 +287,6 @@ def update(id):
 def delete(id):
     get_post(id)
     db = get_db()
-    db.execute('DELETE FROM proxy WHERE id = ?', (id,))
+    db.execute('DELETE FROM upload WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('blog.dashboard'))
+    return redirect(url_for('blog.home'))

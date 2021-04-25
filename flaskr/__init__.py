@@ -15,9 +15,9 @@ def create_app(test_config=None):
 
     # upload file config
     app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(os.getcwd(), 'uploads')
-    app.config['UPLOADED_FILES_URL'] = os.path.join(os.getcwd(), 'uploads')
-    app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(os.getcwd(), 'uploads')
-    app.config['UPLOADS_DEFAULT_URL'] = os.path.join(os.getcwd(), 'uploads')
+    app.config['UPLOADED_FILES_URL'] = os.path.join(os.getcwd(), 'files')
+    app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(os.getcwd(), 'defdest')
+    app.config['UPLOADS_DEFAULT_URL'] = os.path.join(os.getcwd(), 'defurl')
 
     configure_uploads(app, photos)
     patch_request_class(app)  # set maximum file size, default is 16MB

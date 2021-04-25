@@ -53,7 +53,7 @@ class UploadForm(FlaskForm):
 
 
 photos = UploadSet('photos', IMAGES)
-app = current_app
+# configure_uploads(app, photos)
 
 
 @bp.route('/upload', methods=('GET', 'POST'))
@@ -65,8 +65,8 @@ def upload():
         fileurls = []
         for f in request.files.getlist('photo'):
             filename = uuid.uuid4().hex
-            fileurls.append(photos.url(filename))
             photos.save(f, name=filename + '.')
+            fileurls.append(filename)
         success = True
         db = get_db()
         db.execute(
@@ -83,7 +83,7 @@ def upload():
 
 @bp.route('/manage')
 def manage_file():
-    files_list = os.listdir(app.config['UPLOADED_PHOTOS_DEST'])
+    files_list = os.listdir(current_app.config['UPLOADED_PHOTOS_DEST'])
     return render_template('blog/manage.html', files_list=files_list)
 
 
@@ -246,8 +246,18 @@ def get_post(id, check_author=True):
 @login_required
 def update(id):
     post = get_post(id)
-    print(post['file_url'])
+    # print(post['file_url'])
     fileurls = ast.literal_eval(post['file_url'])
+    files_list = os.listdir(current_app.config['UPLOADED_PHOTOS_DEST'])
+    results = []
+    for name in fileurls:
+        for f in files_list:
+            print(f.split('.')[0])
+            if name == f.split('.')[0]:
+                results.append(photos.url(name +'.'+ f.split('.')[1]))
+
+
+
 
     if request.method == 'POST':
         title = request.form['title']
@@ -269,7 +279,7 @@ def update(id):
             db.commit()
             return redirect(url_for('blog.index'))
     print(fileurls)
-    return render_template('blog/update.html', post=post, fileurls=fileurls)
+    return render_template('blog/update.html', post=post, fileurls=results)
 
 
 @bp.route('/<int:id>/delete', methods=('POST',))

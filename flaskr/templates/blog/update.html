@@ -15,11 +15,14 @@
     <br><img src="{{ u }}">
     {% endfor %}
 
-
+    {% if g.user['id'] == post['author_id'] %}
     <input type="submit" value="Save">
+    {% endif %}
   </form>
   <hr>
+{% if g.user['id'] == post['author_id'] %}
   <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
+{% endif %}
 {% endblock %}

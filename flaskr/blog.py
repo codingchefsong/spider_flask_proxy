@@ -8,7 +8,6 @@ from flask import (
 # from flask import Flask, flash, request, redirect, url_for
 from werkzeug.exceptions import abort
 
-
 import os
 
 from wtforms.validators import DataRequired
@@ -30,7 +29,7 @@ bp = Blueprint('blog', __name__)
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import SubmitField, StringField
+from wtforms import SubmitField, StringField, TextAreaField
 
 
 # app = Flask(__name__)
@@ -44,7 +43,8 @@ from wtforms import SubmitField, StringField
 
 
 class UploadForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+    title = StringField('title', validators=[DataRequired()])
+    body = TextAreaField('body', validators=[DataRequired()])
     photos = UploadSet('photos', IMAGES)
     photo = FileField(validators=[
         FileAllowed(photos, "Picture Only!"),
@@ -53,6 +53,8 @@ class UploadForm(FlaskForm):
 
 
 photos = UploadSet('photos', IMAGES)
+
+
 # configure_uploads(app, photos)
 
 
@@ -61,7 +63,8 @@ photos = UploadSet('photos', IMAGES)
 def upload():
     form = UploadForm()
     if form.validate_on_submit():
-        name = request.form['name']
+        title = request.form['title']
+        body = request.form['body']
         fileurls = []
         for f in request.files.getlist('photo'):
             filename = uuid.uuid4().hex
@@ -72,10 +75,10 @@ def upload():
         db.execute(
             'INSERT INTO upload (title, body, author_id, file_url)'
             ' VALUES (?, ?, ?, ?)',
-            (name, 'body', g.user['id'], str(fileurls))
+            (title, body, g.user['id'], str(fileurls))
         )
         db.commit()
-        return redirect(url_for('blog.home'))
+        return redirect(url_for('blog.index'))
     else:
         success = False
     return render_template('blog/upload.html', form=form, success=success)
@@ -107,16 +110,16 @@ def delete_file(filename):
     return redirect(url_for('blog.manage_file'))
 
 
-@bp.route('/home')
+@bp.route('/')
 @login_required
-def home():
+def index():
     db = get_db()
     posts = db.execute(
         'SELECT p.id, title, body, created, author_id, username'
         ' FROM upload p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
-    return render_template('blog/home.html', posts=posts)
+    return render_template('blog/index.html', posts=posts)
 
 
 @bp.route('/proxy')
@@ -185,9 +188,9 @@ def dashboard():
     return render_template('blog/dashboard.html', records=records)
 
 
-@bp.route('/')
+@bp.route('/home')
 @login_required
-def index():
+def home():
     db = get_db()
     # develop 环境可以工作，linux 不能执行 NULLS LAST
     # records = db.execute(
@@ -202,7 +205,7 @@ def index():
         ' WHERE updated =(SELECT MAX(updated) FROM proxy)'
         ' ORDER BY delay ASC'
     ).fetchall()
-    return render_template('blog/index.html', records=records)
+    return render_template('blog/home.html', records=records)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -262,11 +265,12 @@ def update(id):
         for f in files_list:
             print(f.split('.')[0])
             if name == f.split('.')[0]:
-                results.append(photos.url(name +'.'+ f.split('.')[1]))
+                results.append(photos.url(name + '.' + f.split('.')[1]))
 
     form = UploadForm()
     if form.validate_on_submit():
-        name = request.form['name']
+        title = request.form['title']
+        body = request.form['body']
         fileurls = []
         for f in request.files.getlist('photo'):
             filename = uuid.uuid4().hex
@@ -277,18 +281,35 @@ def update(id):
         db.execute(
             'INSERT INTO upload (title, body, author_id, file_url)'
             ' VALUES (?, ?, ?, ?)',
-            (name, 'body', g.user['id'], str(fileurls))
+            (title, body, g.user['id'], str(fileurls))
         )
         db.commit()
-        return redirect(url_for('blog.home'))
+        return redirect(url_for('blog.index'))
 
     return render_template('blog/update.html', post=post, fileurls=results)
 
 
-@bp.route('/<int:id>/view')
+def get_post_non_usercheck(id):
+    post = get_db().execute(
+        'SELECT p.id, title, body, created, author_id, username, file_url'
+        ' FROM upload p JOIN user u ON p.author_id = u.id'
+        ' WHERE p.id = ?',
+        (id,)
+    ).fetchone()
+
+    if post is None:
+        abort(404, "Post id {0} doesn't exist.".format(id))
+
+    # if check_author and post['author_id'] != g.user['id']:
+    #     abort(403)
+
+    return post
+
+
 @login_required
+@bp.route('/<int:id>/view')
 def view(id):
-    post = get_post(id)
+    post = get_post_non_usercheck(id)
     # print(post['file_url'])
     fileurls = ast.literal_eval(post['file_url'])
     files_list = os.listdir(current_app.config['UPLOADED_PHOTOS_DEST'])
@@ -297,7 +318,7 @@ def view(id):
         for f in files_list:
             print(f.split('.')[0])
             if name == f.split('.')[0]:
-                results.append(photos.url(name +'.'+ f.split('.')[1]))
+                results.append(photos.url(name + '.' + f.split('.')[1]))
     return render_template('blog/update.html', post=post, fileurls=results)
 
 
@@ -308,4 +329,4 @@ def delete(id):
     db = get_db()
     db.execute('DELETE FROM upload WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('blog.home'))
+    return redirect(url_for('blog.index'))

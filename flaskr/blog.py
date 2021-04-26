@@ -103,9 +103,11 @@ def open_file(filename):
 @login_required
 def delete_file(filename):
     file_path = photos.path(filename)
+    print(file_path)
     # os.remove(file_path)
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-    dest = os.path.join(APP_ROOT, 'delete')
+    dest = os.path.join(APP_ROOT, 'delete\\')
+    print(dest)
     shutil.move(file_path, dest)
     return redirect(url_for('blog.manage_file'))
 

@@ -1,3 +1,4 @@
+import shutil
 import uuid
 import ast
 
@@ -82,25 +83,32 @@ def upload():
 
 
 @bp.route('/manage')
+@login_required
 def manage_file():
     files_list = os.listdir(current_app.config['UPLOADED_PHOTOS_DEST'])
     return render_template('blog/manage.html', files_list=files_list)
 
 
 @bp.route('/open/<filename>')
+@login_required
 def open_file(filename):
     file_url = photos.url(filename)
     return render_template('blog/browser.html', file_url=file_url)
 
 
 @bp.route('/delete/<filename>')
+@login_required
 def delete_file(filename):
     file_path = photos.path(filename)
-    os.remove(file_path)
+    # os.remove(file_path)
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    dest = os.path.join(APP_ROOT, 'delete')
+    shutil.move(file_path, dest)
     return redirect(url_for('blog.manage_file'))
 
 
 @bp.route('/home')
+@login_required
 def home():
     db = get_db()
     posts = db.execute(
@@ -274,6 +282,22 @@ def update(id):
         db.commit()
         return redirect(url_for('blog.home'))
 
+    return render_template('blog/update.html', post=post, fileurls=results)
+
+
+@bp.route('/<int:id>/view')
+@login_required
+def view(id):
+    post = get_post(id)
+    # print(post['file_url'])
+    fileurls = ast.literal_eval(post['file_url'])
+    files_list = os.listdir(current_app.config['UPLOADED_PHOTOS_DEST'])
+    results = []
+    for name in fileurls:
+        for f in files_list:
+            print(f.split('.')[0])
+            if name == f.split('.')[0]:
+                results.append(photos.url(name +'.'+ f.split('.')[1]))
     return render_template('blog/update.html', post=post, fileurls=results)
 
 

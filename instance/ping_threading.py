@@ -42,7 +42,7 @@ def ping_163(id, ip, port):
         r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=1)
         if r.status_code == 200:
             elapsed = r.elapsed.total_seconds()
-            print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
+            # print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
             delay = str(elapsed)
             db = get_db()
             # db.execute("REPLACE INTO proxy (id, updated, delay, ip, port, author_id) VALUES (?,?,?,?,?,?)",
@@ -66,7 +66,7 @@ def start():
     records = get_records()
     for r in records:
         id, ip, port = r[0], r[1], r[2]
-        print(ip, port)
+        # print(ip, port)
         thread = threading.Thread(target=ping_163, args=(id, ip, port,))
         thread.setDaemon(True)
         threads.append(thread)
@@ -74,7 +74,7 @@ def start():
         thread.start()
     for thread in threads:
         thread.join(timeout=1)
-        print(threading.active_count())
+        # print(threading.active_count())
 
 
 if __name__ == '__main__':

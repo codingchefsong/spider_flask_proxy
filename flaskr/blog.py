@@ -263,7 +263,7 @@ def update(id):
     results = []
     for name in fileurls:
         for f in files_list:
-            print(f.split('.')[0])
+            # print(f.split('.')[0])
             if name == f.split('.')[0]:
                 results.append(photos.url(name + '.' + f.split('.')[1]))
 
@@ -316,7 +316,7 @@ def view(id):
     results = []
     for name in fileurls:
         for f in files_list:
-            print(f.split('.')[0])
+            # print(f.split('.')[0])
             if name == f.split('.')[0]:
                 results.append(photos.url(name + '.' + f.split('.')[1]))
     return render_template('blog/update.html', post=post, fileurls=results)

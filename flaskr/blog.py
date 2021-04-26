@@ -85,11 +85,11 @@ def upload():
     # return render_template('blog/upload.html', form=form, file_url=file_url)
 
 
-@bp.route('/manage')
-@login_required
-def manage_file():
-    files_list = os.listdir(current_app.config['UPLOADED_PHOTOS_DEST'])
-    return render_template('blog/manage.html', files_list=files_list)
+# @bp.route('/manage')
+# @login_required
+# def manage_file():
+#     files_list = os.listdir(current_app.config['UPLOADED_PHOTOS_DEST'])
+#     return render_template('blog/manage.html', files_list=files_list)
 
 
 @bp.route('/open/<filename>')
@@ -99,17 +99,17 @@ def open_file(filename):
     return render_template('blog/browser.html', file_url=file_url)
 
 
-@bp.route('/delete/<filename>')
-@login_required
-def delete_file(filename):
-    file_path = photos.path(filename)
-    print(file_path)
-    # os.remove(file_path)
-    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-    dest = os.path.join(APP_ROOT, 'delete\\')
-    print(dest)
-    shutil.move(file_path, dest)
-    return redirect(url_for('blog.manage_file'))
+# @bp.route('/delete/<filename>')
+# @login_required
+# def delete_file(filename):
+#     file_path = photos.path(filename)
+#     print(file_path)
+#     # os.remove(file_path)
+#     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+#     dest = os.path.join(APP_ROOT, 'delete\\')
+#     print(dest)
+#     shutil.move(file_path, dest)
+#     return redirect(url_for('blog.manage_file'))
 
 
 @bp.route('/')
@@ -329,6 +329,18 @@ def view(id):
 def delete(id):
     get_post(id)
     db = get_db()
+
+
+    # get
+    post = get_post(id)
+
+    # save
+    db.execute(
+        'INSERT INTO deleted (title, body, author_id, file_url)'
+        ' VALUES (?, ?, ?, ?)',
+        (post['title'], post['body'], post['author_id'], post['file_url'])
+    )
+
     db.execute('DELETE FROM upload WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('blog.index'))

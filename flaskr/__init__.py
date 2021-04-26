@@ -1,6 +1,12 @@
 import os
 
 from flask import Flask
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms import SubmitField
+
+photos = UploadSet('photos', IMAGES)
 
 
 def create_app(test_config=None):
@@ -8,10 +14,18 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
     # upload file config
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    # app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(os.getcwd(), 'uploads')
+    # app.config['UPLOADED_FILES_URL'] = os.path.join(os.getcwd(), 'files')
+    # app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(os.getcwd(), 'defdest')
+    # app.config['UPLOADS_DEFAULT_URL'] = os.path.join(os.getcwd(), 'defurl')
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(APP_ROOT, 'uploads')
+
+    configure_uploads(app, photos)
+    patch_request_class(app)  # set maximum file size, default is 16MB
 
     app.config.from_mapping(
-        SECRET_KEY='dev',
+        SECRET_KEY='Ju:kb3?%=o/3%vqo',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
 

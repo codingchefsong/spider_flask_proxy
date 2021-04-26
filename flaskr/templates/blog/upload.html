@@ -1,20 +1,23 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<title>Upload File</title>
+<h1>Upload File</h1>
+<a href="{{ url_for('blog.home') }}">Home</a> /
+<a href="{{ url_for('blog.upload') }}">Upload</a> /
+<a href="{{ url_for('blog.manage_file') }}">Manage</a>
+<hr>
 
-{% block header %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='dropzone.min.css') }}">
-  <h1>{% block title %}New Post{% endblock %}</h1>
-{% endblock %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    {{ form.name.label }} {{ form.name(size=20) }}
+    {{ form.photo(multiple="multiple")}}
+    {% for error in form.photo.errors %}
+        <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    {{ form.submit }}
+</form>
 
-{% block content %}
-  <form action="{{ url_for('blog.create') }}" method="post" enctype=multipart/form-data class="dropzone">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-
-<!--    <input type = "file" name = "file" />-->
-
-<!--    <input type="submit" value="Save">-->
-  </form>
-  <script src="{{ url_for('static', filename='dropzone.min.js') }}"></script>
-{% endblock %}
+{% if success %}
+<br>
+<p>Upload Success!</p>
+{% endif %}

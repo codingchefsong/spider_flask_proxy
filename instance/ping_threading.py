@@ -3,6 +3,7 @@ import sqlite3
 import urllib3
 import threading
 import requests
+import requests.adapters
 import time
 
 

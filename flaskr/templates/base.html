@@ -35,17 +35,21 @@
 
                 </ul>
             </div>
-
         </div>
     </nav>
-
 </head>
+
 <section class="content">
+
     <header>
         {% block header %}{% endblock %}
     </header>
+
     {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
     {% endfor %}
-    {% block content %}{% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
 </section>

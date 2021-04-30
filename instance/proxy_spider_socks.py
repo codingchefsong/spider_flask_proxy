@@ -210,17 +210,8 @@ import sqlite3
 import urllib3
 import threading
 import requests
+import requests.adapters
 import time
-
-
-def get_db():
-    sysstr = platform.system()
-    if sysstr == "Linux":
-        db = sqlite3.connect('/root/flask_proxy/venv/var/flaskr-instance/flaskr.sqlite')
-    # debug
-    elif sysstr == "Windows":
-        db = sqlite3.connect('flaskr.sqlite')
-    return db
 
 
 def get_records():

@@ -1,30 +1,44 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Dashboard{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('blog.create') }}">New</a>
-  {% endif %}
+<h1>{% block title %}Dashboard{% endblock %}</h1>
+{% if g.user %}
+<a class="action" href="{{ url_for('blog.create') }}">New</a>
+{% endif %}
 {% endblock %}
 
 {% block content %}
-  {% for r in records %}
+<div class="container">
+
+    <thead>
+    <tr>
+        <th>IP</th>
+        <th>Port</th>
+        <th>Port</th>
+        <th>Updated</th>
+        <th>Created</th>
+
+    </tr>
+    </thead>
+
+    {% for r in records %}
     <article class="r">
-      <header>
-        <div>
-          <h1>{{ r['ip'] }}:{{ r['port'] }} </h1>
-          {% if r['updated'] %}
-            <div class="about">update: {{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
-          {% endif %}
-          <div class="about">create: {{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
-        </div>
-        {% if g.user['id'] == r['author_id'] %}
-          <a class="action" href="{{ url_for('blog.update', id=r['id']) }}">Edit</a>
-        {% endif %}
-      </header>
+        <header>
+            <div>
+                <h1>{{ r['ip'] }}:{{ r['port'] }} </h1>
+                {% if r['updated'] %}
+                <div class="about">update: {{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
+                {% endif %}
+                <div class="about">create: {{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
+            </div>
+            {% if g.user['id'] == r['author_id'] %}
+            <a class="action" href="{{ url_for('blog.update', id=r['id']) }}">Edit</a>
+            {% endif %}
+        </header>
     </article>
     {% if not loop.last %}
-      <hr>
+    <hr>
     {% endif %}
-  {% endfor %}
+    {% endfor %}
+</div>
 {% endblock %}

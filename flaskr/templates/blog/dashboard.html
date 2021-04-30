@@ -9,36 +9,37 @@
 
 {% block content %}
 <div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>IP</th>
+            <th>Port</th>
+            <th>Latency</th>
+            <th>Updated</th>
+            <th>Created</th>
+        </tr>
+        </thead>
 
-    <thead>
-    <tr>
-        <th>IP</th>
-        <th>Port</th>
-        <th>Port</th>
-        <th>Updated</th>
-        <th>Created</th>
-
-    </tr>
-    </thead>
-
-    {% for r in records %}
-    <article class="r">
-        <header>
-            <div>
-                <h1>{{ r['ip'] }}:{{ r['port'] }} </h1>
-                {% if r['updated'] %}
-                <div class="about">update: {{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
-                {% endif %}
-                <div class="about">create: {{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
-            </div>
-            {% if g.user['id'] == r['author_id'] %}
-            <a class="action" href="{{ url_for('blog.update', id=r['id']) }}">Edit</a>
+        <tbody>
+        {% for r in records %}
+        <tr>
+            <td>{{ r['ip'] }}</td>
+            <td>{{ r['port'] }}</td>
+            <td>{{ r['delay'] }}</td>
+            {% if r['updated'] %}
+            <td>{{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            {% else %}
+            <td></td>
             {% endif %}
-        </header>
-    </article>
-    {% if not loop.last %}
-    <hr>
-    {% endif %}
-    {% endfor %}
+
+            {% if r['created'] %}
+            <td>{{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

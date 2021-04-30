@@ -182,7 +182,7 @@ def dashboard():
     db = get_db()
 
     records = db.execute(
-        'SELECT p.id, author_id, created, updated, ip, port, username'
+        'SELECT p.id, author_id, delay, created, updated, ip, port, username'
         ' FROM proxy p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()

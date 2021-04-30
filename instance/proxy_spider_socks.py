@@ -145,21 +145,94 @@ def get_proxy_ip():
     print(datetime, "Save to database...")
 
 
-def test_proxy_ip():
-    datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    print()
-    print(datetime, "Test proxy ip...")
+# def test_proxy_ip():
+#     datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+#     print()
+#     print(datetime, "Test proxy ip...")
+#
+#     # 测试目标url返回的延迟
+#     url = "http://music.163.com"
+#     # 从database获取所有ip
+#     # ip_port_dic = db.select_all()
+#     db = get_db()
+#     # ip_port_dic = db.execute("SELECT id,ip,port from proxy ORDER BY created DESC").fetchall()
+#     ip_port_dic = db.execute("SELECT id,ip,port FROM proxy WHERE created =(SELECT MAX(created) FROM proxy)").fetchall()
+#     # dict 存储测试过的id,delay
+#     delay_dict = []
+#
+#     send_headers = {
+#         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+#                       "Chrome/61.0.3163.100 Safari/537.36",
+#         "Connection": "keep-alive",
+#         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+#         "Accept-Language": "zh-CN,zh;q=0.8"}
+#     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+#     t_start = time.time()
+#     for i, ip, port in ip_port_dic:
+#         # 计时器
+#         time_start = time.time()
+#         # print(i,ip,port)
+#         proxy_dict = {"http": "socks5://" + ip + ':' + port}
+#         try:
+#             s = requests.Session()
+#             a = requests.adapters.HTTPAdapter(max_retries=1)
+#             s.mount('http://', a)
+#             r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=(3.05, 3.05))
+#             # 过滤不能返回的，留下成功返回的
+#             # print(r.status_code)
+#             if r.status_code == 200:
+#                 elapsed = r.elapsed.total_seconds()
+#                 print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
+#                 delay = str(elapsed)
+#
+#                 delay_dict.append((ip, port, delay))
+#                 db.execute("INSERT INTO socks (updated, ip, port, delay, author_id) VALUES (?,?,?,?,?)",
+#                            (datetime, ip, port, delay, 1))
+#                 # db.execute("INSERT into socks set delay = ?, updated = ? WHERE ID = ?", (delay, datetime, i))
+#                 db.commit()
+#         except requests.exceptions.ReadTimeout:
+#             pass
+#         except requests.exceptions.ConnectTimeout:
+#             pass
+#         except requests.exceptions.ConnectionError:
+#             pass
+#         except requests.exceptions.RequestException as e:
+#             print(e)
+#             pass
+#         time_end = time.time()
+#         # print('time cost: ', time_end - time_start, 's')
+#     t_end = time.time()
+#     print('Total time cost: ', t_end - t_start, 's')
 
-    # 测试目标url返回的延迟
-    url = "http://music.163.com"
-    # 从database获取所有ip
-    # ip_port_dic = db.select_all()
+
+import platform
+import sqlite3
+import urllib3
+import threading
+import requests
+import time
+
+
+def get_db():
+    sysstr = platform.system()
+    if sysstr == "Linux":
+        db = sqlite3.connect('/root/flask_proxy/venv/var/flaskr-instance/flaskr.sqlite')
+    # debug
+    elif sysstr == "Windows":
+        db = sqlite3.connect('flaskr.sqlite')
+    return db
+
+
+def get_records():
     db = get_db()
-    # ip_port_dic = db.execute("SELECT id,ip,port from proxy ORDER BY created DESC").fetchall()
-    ip_port_dic = db.execute("SELECT id,ip,port FROM proxy WHERE created =(SELECT MAX(created) FROM proxy)").fetchall()
-    # dict 存储测试过的id,delay
-    delay_dict = []
+    id_ip_port_list = db.execute(
+        "SELECT id,ip,port FROM proxy WHERE created =(SELECT MAX(created) FROM proxy)").fetchall()
+    # print(id_ip_port_list)
+    return id_ip_port_list
 
+
+def ping_163(id, ip, port):
+    url = "http://music.163.com"
     send_headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/61.0.3163.100 Safari/537.36",
@@ -167,53 +240,60 @@ def test_proxy_ip():
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
         "Accept-Language": "zh-CN,zh;q=0.8"}
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    t_start = time.time()
-    for i, ip, port in ip_port_dic:
-        # 计时器
-        time_start = time.time()
-        # print(i,ip,port)
-        proxy_dict = {"http": "socks5://" + ip + ':' + port}
-        try:
-            s = requests.Session()
-            a = requests.adapters.HTTPAdapter(max_retries=1)
-            s.mount('http://', a)
-            r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=(3.05, 3.05))
-            # 过滤不能返回的，留下成功返回的
-            # print(r.status_code)
-            if r.status_code == 200:
-                elapsed = r.elapsed.total_seconds()
-                print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
-                delay = str(elapsed)
-
-                delay_dict.append((ip, port, delay))
-                db.execute("INSERT INTO socks (updated, ip, port, delay, author_id) VALUES (?,?,?,?,?)",
-                           (datetime, ip, port, delay, 1))
-                # db.execute("INSERT into socks set delay = ?, updated = ? WHERE ID = ?", (delay, datetime, i))
-                db.commit()
-        except requests.exceptions.ReadTimeout:
-            pass
-        except requests.exceptions.ConnectTimeout:
-            pass
-        except requests.exceptions.ConnectionError:
-            pass
-        except requests.exceptions.RequestException as e:
-            print(e)
-            pass
-        time_end = time.time()
-        # print('time cost: ', time_end - time_start, 's')
-    t_end = time.time()
-    print('Total time cost: ', t_end - t_start, 's')
+    proxy_dict = {"http": "socks5://" + ip + ':' + port}
+    s = requests.Session()
+    a = requests.adapters.HTTPAdapter(max_retries=1)
+    s.mount('http://', a)
+    datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    try:
+        r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=1)
+        if r.status_code == 200:
+            elapsed = r.elapsed.total_seconds()
+            # print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
+            delay = str(elapsed)
+            db = get_db()
+            # db.execute("REPLACE INTO proxy (id, updated, delay, ip, port, author_id) VALUES (?,?,?,?,?,?)",
+            #            (id, datetime, delay, ip, port, 1))
+            db.execute("UPDATE proxy SET updated = ?, delay = ? WHERE id = ?", (datetime, delay, id))
+            db.commit()
+    except requests.exceptions.ReadTimeout:
+        pass
+    except requests.exceptions.ConnectTimeout:
+        pass
+    except requests.exceptions.ConnectionError:
+        pass
+    except requests.exceptions.RequestException as e:
+        print(e)
+        pass
 
 
-# init db
-# init_proxy_table()
-# init_socks_table()
+def test_each_proxy():
+    threads = []
+
+    records = get_records()
+    for r in records:
+        id, ip, port = r[0], r[1], r[2]
+        # print(ip, port)
+        thread = threading.Thread(target=ping_163, args=(id, ip, port,))
+        thread.setDaemon(True)
+        threads.append(thread)
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(timeout=1)
+        # print(threading.active_count())
 
 
-get_proxy_ip()
-schedule.every(1).hours.do(get_proxy_ip)
-# schedule.every(5).minutes.do(test_proxy_ip)
+if __name__ == '__main__':
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+    # init db
+    # init_proxy_table()
+    # init_socks_table()
+
+    get_proxy_ip()
+    schedule.every(1).hours.do(get_proxy_ip)
+    schedule.every(1).minutes.do(test_each_proxy)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)

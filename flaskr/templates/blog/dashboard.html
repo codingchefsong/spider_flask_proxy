@@ -9,13 +9,13 @@
 
 {% block content %}
 <div class="container">
-  <div>
-    <canvas id="myChart"></canvas>
-  </div>
-  <script src="{{ url_for('static', filename='chart.min.js') }}"></script>
-<!--  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="{{ url_for('static', filename='chart.min.js') }}"></script>
+    <!--  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
 
-  <script>
+    <script>
     const labels = [
       'January',
       'February',
@@ -44,39 +44,42 @@
     );
 
 
-  </script>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>IP</th>
-        <th>Port</th>
-        <th>Latency</th>
-        <th>Updated</th>
-        <th>Created</th>
-      </tr>
-    </thead>
+    </script>
 
-    <tbody>
-      {% for r in records %}
-      <tr>
-        <td>{{ r['ip'] }}</td>
-        <td>{{ r['port'] }}</td>
-        <td>{{ r['delay'] }}</td>
-        {% if r['updated'] %}
-        <td>{{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
-        {% else %}
-        <td></td>
-        {% endif %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>IP</th>
+                <th>Port</th>
+                <th>Latency</th>
+                <th>Updated</th>
+                <th>Created</th>
+            </tr>
+            </thead>
 
-        {% if r['created'] %}
-        <td>{{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
-        {% else %}
-        <td></td>
-        {% endif %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+            <tbody>
+            {% for r in records %}
+            <tr>
+                <td>{{ r['ip'] }}</td>
+                <td>{{ r['port'] }}</td>
+                <td>{{ r['delay'] }}</td>
+                {% if r['updated'] %}
+                <td>{{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+
+                {% if r['created'] %}
+                <td>{{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

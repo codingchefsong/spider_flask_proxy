@@ -7,9 +7,9 @@
     <!--    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">-->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.js') }}">
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="First navbar example">
 
+    <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="First navbar example">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('blog.index') }}">Pallet Management System</a>
 
             <div class="collapse navbar-collapse" id="navbarsExample02">
@@ -35,8 +35,8 @@
 
                 </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 </head>
 
 <section class="content">

@@ -8,72 +8,74 @@
 {% endblock %}
 
 {% block content %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js">
-const config = {
-  type: 'line',
-  data,
-  options: {}
-};
-const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-];
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First dataset',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
-  }]
-};
-  // === include 'setup' then 'config' above ===
-
-  var myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
-</script>
-
-<div>
-  <canvas id="myChart"></canvas>
-</div>
 <div class="container">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>IP</th>
-            <th>Port</th>
-            <th>Latency</th>
-            <th>Updated</th>
-            <th>Created</th>
-        </tr>
-        </thead>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <tbody>
-        {% for r in records %}
-        <tr>
-            <td>{{ r['ip'] }}</td>
-            <td>{{ r['port'] }}</td>
-            <td>{{ r['delay'] }}</td>
-            {% if r['updated'] %}
-            <td>{{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
-            {% else %}
-            <td></td>
-            {% endif %}
+  <script>
+    const labels = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+    ];
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [0, 10, 5, 2, 20, 30, 45],
+      }]
+    };
+    const config = {
+      type: 'line',
+      data,
+      options: {}
+    };
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
 
-            {% if r['created'] %}
-            <td>{{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
-            {% else %}
-            <td></td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+  </script>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>IP</th>
+        <th>Port</th>
+        <th>Latency</th>
+        <th>Updated</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for r in records %}
+      <tr>
+        <td>{{ r['ip'] }}</td>
+        <td>{{ r['port'] }}</td>
+        <td>{{ r['delay'] }}</td>
+        {% if r['updated'] %}
+        <td>{{ r['updated'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        {% else %}
+        <td></td>
+        {% endif %}
+
+        {% if r['created'] %}
+        <td>{{ r['created'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        {% else %}
+        <td></td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

@@ -18,7 +18,7 @@
     <script>
     const labels = [
       {% for c in costs %}
-      '{{ c['created'].strftime('%Y-%m-%d %H:%M:%S') }}'{% if not loop.last %},{% endif %}
+      '{{ c['created'].strftime('%m%d%H%M') }}'{% if not loop.last %},{% endif %}
     {% endfor %}
     ];
     const data = {

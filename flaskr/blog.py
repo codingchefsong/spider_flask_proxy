@@ -121,7 +121,13 @@ def index():
         ' FROM upload p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
-    return render_template('blog/index.html', posts=posts)
+    costs = db.execute(
+        'SELECT created, cost'
+        ' FROM timecost'
+        ' ORDER BY created DESC'
+        'LIMIT 10'
+    ).fetchall()
+    return render_template('blog/index.html', posts=posts, costs=costs)
 
 
 @bp.route('/proxy')

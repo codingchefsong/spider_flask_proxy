@@ -96,7 +96,7 @@ if __name__ == '__main__':
         db = get_db()
         # db.execute("REPLACE INTO proxy (id, updated, delay, ip, port, author_id) VALUES (?,?,?,?,?,?)",
         #            (id, datetime, delay, ip, port, 1))
-        db.execute("UPDATE proxy SET updated = ?, delay = ? WHERE id = ?", (datetime, delay, id))
+        db.execute("INSERT INTO timecost (cost) VALUES (?)", (str(time_end - time_start),))
         db.commit()
 
 

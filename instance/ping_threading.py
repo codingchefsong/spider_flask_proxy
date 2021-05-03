@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     while 1:
         time_start = time.time()
-        datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        # datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         # print(datetime)
         # print("start task")
 
@@ -96,7 +96,8 @@ if __name__ == '__main__':
         db = get_db()
         # db.execute("REPLACE INTO proxy (id, updated, delay, ip, port, author_id) VALUES (?,?,?,?,?,?)",
         #            (id, datetime, delay, ip, port, 1))
-        db.execute("INSERT INTO timecost (cost) VALUES (?)", (str(time_end - time_start),))
+        datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        db.execute("INSERT INTO timecost (created, cost) VALUES (?,?)", (datetime, str(time_end - time_start)))
         db.commit()
 
 

@@ -190,9 +190,12 @@ def dashboard():
 
     costs = db.execute(
         'SELECT created, cost'
+        ' FROM ('
+        'SELECT created, cost'
         ' FROM timecost'
         ' ORDER BY created DESC'
         ' LIMIT 10'
+        ') ORDER BY created'
     ).fetchall()
     """
     {% for c in costs %}

@@ -194,7 +194,7 @@ def dashboard():
         'SELECT created, cost'
         ' FROM timecost'
         ' ORDER BY created DESC'
-        ' LIMIT 10'
+        ' LIMIT 5'
         ') ORDER BY created'
     ).fetchall()
     """

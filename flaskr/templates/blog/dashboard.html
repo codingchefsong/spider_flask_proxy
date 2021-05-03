@@ -17,12 +17,9 @@
 
     <script>
     const labels = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
+      {% for c in costs %}
+      '{{ c['created'].strftime('%Y-%m-%d %H:%M:%S') }}'{% if not loop.last %},{% endif %}
+    {% endfor %}
     ];
     const data = {
       labels: labels,
@@ -30,7 +27,11 @@
         label: 'My First dataset',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45],
+        data: [
+        {% for c in costs %}
+          {{ c['cost'] }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+        ],
       }]
     };
     const config = {
@@ -42,6 +43,7 @@
       document.getElementById('myChart'),
       config
     );
+
 
 
 

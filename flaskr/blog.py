@@ -121,13 +121,8 @@ def index():
         ' FROM upload p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
-    costs = db.execute(
-        'SELECT created, cost'
-        ' FROM timecost'
-        ' ORDER BY created DESC'
-        'LIMIT 10'
-    ).fetchall()
-    return render_template('blog/index.html', posts=posts, costs=costs)
+
+    return render_template('blog/index.html', posts=posts)
 
 
 @bp.route('/proxy')
@@ -193,7 +188,18 @@ def dashboard():
         ' ORDER BY updated DESC'
     ).fetchall()
 
-    return render_template('blog/dashboard.html', records=records)
+    costs = db.execute(
+        'SELECT created, cost'
+        ' FROM timecost'
+        ' ORDER BY created DESC'
+        ' LIMIT 10'
+    ).fetchall()
+    """
+    {% for c in costs %}
+      {{ c['created'].strftime('%Y-%m-%d %H:%M:%S') }}{% if not loop.last %},{% endif %}
+    {% endfor %}
+    """
+    return render_template('blog/dashboard.html', records=records, costs=costs)
 
 
 @bp.route('/home')

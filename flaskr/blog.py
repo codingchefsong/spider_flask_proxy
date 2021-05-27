@@ -59,7 +59,7 @@ photos = UploadSet('photos', IMAGES)
 
 
 @bp.route('/upload', methods=('GET', 'POST'))
-@login_required
+# @login_required
 def upload():
     form = UploadForm()
     if form.validate_on_submit():
@@ -125,7 +125,7 @@ def index():
     return render_template('blog/index.html', posts=posts)
 
 
-@bp.route('/proxy')
+@bp.route('/proxy.pac')
 def proxy():
     # print(id)
     db = get_db()

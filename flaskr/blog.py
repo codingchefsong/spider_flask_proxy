@@ -125,6 +125,26 @@ def index():
     return render_template('blog/index.html', posts=posts)
 
 
+@bp.route('/proxy')
+def proxy():
+    # print(id)
+    db = get_db()
+    # records = db.execute(
+    #     'SELECT p.id, author_id, created, ip, port, delay, username'
+    #     ' FROM socks p JOIN user u ON p.author_id = u.id'
+    #     ' WHERE delay IS NOT NULL'
+    #     ' ORDER BY created DESC, delay ASC'
+    # ).fetchall()
+    records = db.execute(
+        'SELECT ip, port'
+        ' FROM proxy p JOIN user u ON p.author_id = u.id'
+        ' WHERE updated =(SELECT MAX(updated) FROM proxy)'
+        ' ORDER BY delay ASC'
+    ).fetchall()
+    # record = records[id]
+    return render_template('proxy.html', records=records)
+
+
 @bp.route('/proxy.pac')
 def proxy():
     # print(id)
@@ -344,7 +364,6 @@ def view(id):
 def delete(id):
     get_post(id)
     db = get_db()
-
 
     # get
     post = get_post(id)

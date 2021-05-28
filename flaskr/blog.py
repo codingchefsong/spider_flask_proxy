@@ -126,7 +126,7 @@ def index():
 
 
 @bp.route('/proxy')
-def proxy():
+def proxyo():
     # print(id)
     db = get_db()
     # records = db.execute(

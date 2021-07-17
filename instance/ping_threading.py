@@ -6,6 +6,10 @@ import requests
 import requests.adapters
 import time
 
+"""
+test
+"""
+
 
 def get_db():
     sysstr = platform.system()
@@ -19,8 +23,10 @@ def get_db():
 
 def get_records():
     db = get_db()
+    # id_ip_port_list = db.execute(
+    #     "SELECT id,ip,port FROM proxy WHERE created =(SELECT MAX(created) FROM proxy)").fetchall()
     id_ip_port_list = db.execute(
-        "SELECT id,ip,port FROM proxy WHERE created =(SELECT MAX(created) FROM proxy)").fetchall()
+        "SELECT id,ip,port FROM proxy").fetchall()
     # print(id_ip_port_list)
     return id_ip_port_list
 
@@ -36,20 +42,22 @@ def ping_163(id, ip, port):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     proxy_dict = {"http": "socks5://" + ip + ':' + port}
     s = requests.Session()
-    a = requests.adapters.HTTPAdapter(max_retries=1)
+    a = requests.adapters.HTTPAdapter(max_retries=2)
     s.mount('http://', a)
     datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     try:
-        r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=1)
+        r = s.get(url, headers=send_headers, verify=False, proxies=proxy_dict, timeout=2)
         if r.status_code == 200:
             elapsed = r.elapsed.total_seconds()
-            # print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
+            print("{:10.2f}".format(elapsed) + "\t" + ip + ':' + port)
             delay = str(elapsed)
+            threadLock.acquire()
             db = get_db()
             # db.execute("REPLACE INTO proxy (id, updated, delay, ip, port, author_id) VALUES (?,?,?,?,?,?)",
             #            (id, datetime, delay, ip, port, 1))
             db.execute("UPDATE proxy SET updated = ?, delay = ? WHERE id = ?", (datetime, delay, id))
             db.commit()
+            threadLock.release()
     except requests.exceptions.ReadTimeout:
         pass
     except requests.exceptions.ConnectTimeout:
@@ -59,6 +67,9 @@ def ping_163(id, ip, port):
     except requests.exceptions.RequestException as e:
         print(e)
         pass
+
+
+threadLock = threading.Lock()
 
 
 def start():
@@ -82,13 +93,20 @@ if __name__ == '__main__':
 
     while 1:
         time_start = time.time()
-        datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        # datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         # print(datetime)
         # print("start task")
 
         start()
 
         time_end = time.time()
-        # print('time cost: ', time_end - time_start, 's')
+        print('time cost: ', time_end - time_start, 's')
 
-        time.sleep(1)
+        db = get_db()
+        # db.execute("REPLACE INTO proxy (id, updated, delay, ip, port, author_id) VALUES (?,?,?,?,?,?)",
+        #            (id, datetime, delay, ip, port, 1))
+        datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        db.execute("INSERT INTO timecost (created, cost) VALUES (?,?)", (datetime, str(time_end - time_start)))
+        db.commit()
+
+        time.sleep(15)

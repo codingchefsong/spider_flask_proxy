@@ -59,7 +59,7 @@ photos = UploadSet('photos', IMAGES)
 
 
 @bp.route('/upload', methods=('GET', 'POST'))
-@login_required
+# @login_required
 def upload():
     form = UploadForm()
     if form.validate_on_submit():
@@ -121,10 +121,31 @@ def index():
         ' FROM upload p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
+
     return render_template('blog/index.html', posts=posts)
 
 
 @bp.route('/proxy')
+def proxyo():
+    # print(id)
+    db = get_db()
+    # records = db.execute(
+    #     'SELECT p.id, author_id, created, ip, port, delay, username'
+    #     ' FROM socks p JOIN user u ON p.author_id = u.id'
+    #     ' WHERE delay IS NOT NULL'
+    #     ' ORDER BY created DESC, delay ASC'
+    # ).fetchall()
+    records = db.execute(
+        'SELECT ip, port'
+        ' FROM proxy p JOIN user u ON p.author_id = u.id'
+        ' WHERE updated =(SELECT MAX(updated) FROM proxy)'
+        ' ORDER BY delay ASC'
+    ).fetchall()
+    # record = records[id]
+    return render_template('proxy.html', records=records)
+
+
+@bp.route('/proxy.pac')
 def proxy():
     # print(id)
     db = get_db()
@@ -184,10 +205,24 @@ def dashboard():
     records = db.execute(
         'SELECT p.id, author_id, delay, created, updated, ip, port, username'
         ' FROM proxy p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY updated DESC'
+        ' ORDER BY updated DESC, delay'
     ).fetchall()
 
-    return render_template('blog/dashboard.html', records=records)
+    costs = db.execute(
+        'SELECT created, cost'
+        ' FROM ('
+        'SELECT created, cost'
+        ' FROM timecost'
+        ' ORDER BY created DESC'
+        ' LIMIT 5'
+        ') ORDER BY created'
+    ).fetchall()
+    """
+    {% for c in costs %}
+      {{ c['created'].strftime('%Y-%m-%d %H:%M:%S') }}{% if not loop.last %},{% endif %}
+    {% endfor %}
+    """
+    return render_template('blog/dashboard.html', records=records, costs=costs)
 
 
 @bp.route('/home')
@@ -329,7 +364,6 @@ def view(id):
 def delete(id):
     get_post(id)
     db = get_db()
-
 
     # get
     post = get_post(id)

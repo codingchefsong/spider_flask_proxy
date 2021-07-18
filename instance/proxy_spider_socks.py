@@ -62,7 +62,7 @@ def init_socks_table():
     db.executescript("""
         CREATE TABLE socks (
         id        INTEGER   PRIMARY KEY AUTOINCREMENT,
-        
+
         updated   TIMESTAMP NOT NULL
                             DEFAULT CURRENT_TIMESTAMP,
         delay     TEXT,                            
@@ -123,7 +123,7 @@ def get_proxy_ip():
             r = tr[i].font.get_text()
             ip = r.split(":")[0]
             port = r.split(":")[1]
-            # print(ip, port)
+            print(ip, port)
             ip_port_dict[ip] = port
 
     except:
